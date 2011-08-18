@@ -1,0 +1,13 @@
+diff -up webkit-1.2.0/WebCore/plugins/PluginDatabase.cpp.nspluginwrapper webkit-1.2.0/WebCore/plugins/PluginDatabase.cpp
+--- webkit-1.2.0/WebCore/plugins/PluginDatabase.cpp.nspluginwrapper	2010-03-19 16:20:54.000000000 +0100
++++ webkit-1.2.0/WebCore/plugins/PluginDatabase.cpp	2010-04-05 21:07:58.000000000 +0200
+@@ -358,6 +358,9 @@ Vector<String> PluginDatabase::defaultPl
+     paths.append("/usr/lib64/mozilla/plugins");
+     paths.append("/usr/lib/nsbrowser/plugins");
+     paths.append("/usr/lib64/nsbrowser/plugins");
++    /* And for nspluginwrapper */
++    paths.append("/usr/lib64/mozilla/plugins-wrapped");
++    paths.append("/usr/lib/mozilla/plugins-wrapped");
+ 
+     String mozHome(getenv("MOZILLA_HOME"));
+     mozHome.append("/plugins");
