@@ -1,0 +1,53 @@
+diff -up webkit-1.2.0/configure.s390 webkit-1.2.0/configure
+--- webkit-1.2.0/configure.s390	2010-04-05 14:55:18.000000000 +0200
++++ webkit-1.2.0/configure	2010-04-07 12:04:54.000000000 +0200
+@@ -8980,7 +8980,7 @@ s390*-*linux*|s390*-*tpf*|sparc*-*linux*
+ 	  ppc64-*linux*|powerpc64-*linux*)
+ 	    LD="${LD-ld} -m elf32ppclinux"
+ 	    ;;
+-	  s390x-*linux*)
++	  s390*-*linux*)
+ 	    LD="${LD-ld} -m elf_s390"
+ 	    ;;
+ 	  sparc64-*linux*)
+@@ -8999,7 +8999,7 @@ s390*-*linux*|s390*-*tpf*|sparc*-*linux*
+ 	  ppc*-*linux*|powerpc*-*linux*)
+ 	    LD="${LD-ld} -m elf64ppc"
+ 	    ;;
+-	  s390*-*linux*|s390*-*tpf*)
++	  s390x*-*linux*|s390x*-*tpf*)
+ 	    LD="${LD-ld} -m elf64_s390"
+ 	    ;;
+ 	  sparc*-*linux*)
+diff -up webkit-1.2.0/JavaScriptCore/wtf/Platform.h.s390 webkit-1.2.0/JavaScriptCore/wtf/Platform.h
+--- webkit-1.2.0/JavaScriptCore/wtf/Platform.h.s390	2010-04-05 14:51:19.000000000 +0200
++++ webkit-1.2.0/JavaScriptCore/wtf/Platform.h	2010-04-07 12:04:54.000000000 +0200
+@@ -177,10 +177,15 @@
+ 
+ /* CPU(X86_64) - AMD64 / Intel64 / x86_64 64-bit */
+ #if   defined(__x86_64__) \
+-    || defined(_M_X64)
++    || defined(_M_X64)     \
++    || defined(__s390x__)
+ #define WTF_CPU_X86_64 1
+ #endif
+ 
++#if defined(__s390__) || defined(__s390x__)
++#define WTF_PLATFORM_BIG_ENDIAN 1
++#endif
++
+ /* CPU(ARM) - ARM, any version*/
+ #if   defined(arm) \
+     || defined(__arm__)
+diff -up webkit-1.2.0/JavaScriptCore/wtf/TCSpinLock.h.s390 webkit-1.2.0/JavaScriptCore/wtf/TCSpinLock.h
+--- webkit-1.2.0/JavaScriptCore/wtf/TCSpinLock.h.s390	2010-03-19 16:20:53.000000000 +0100
++++ webkit-1.2.0/JavaScriptCore/wtf/TCSpinLock.h	2010-04-07 12:09:01.000000000 +0200
+@@ -33,7 +33,7 @@
+ #ifndef TCMALLOC_INTERNAL_SPINLOCK_H__
+ #define TCMALLOC_INTERNAL_SPINLOCK_H__
+ 
+-#if (CPU(X86) || CPU(X86_64) || CPU(PPC)) && (COMPILER(GCC) || COMPILER(MSVC))
++#if 0
+ 
+ #include <time.h>       /* For nanosleep() */
+ 
